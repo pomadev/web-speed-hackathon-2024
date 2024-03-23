@@ -8,7 +8,6 @@ RUN apk --no-cache add tzdata && \
 
 RUN apk --no-cache add jemalloc
 ENV LD_PRELOAD=/usr/lib/libjemalloc.so.2
-ENV NODE_ENV=production
 
 COPY . .
 RUN corepack enable pnpm
@@ -16,6 +15,7 @@ RUN pnpm install
 RUN pnpm build
 
 ENV PORT 8000
+ENV NODE_ENV production
 EXPOSE 8000
 
 ENTRYPOINT ["pnpm"]
