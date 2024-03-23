@@ -3,9 +3,11 @@
   "private": true,
   "scripts": {
     "build": "pnpm run build:clean && pnpm run build:tsup && pnpm run build:copy",
+    "build:prod": "pnpm run build:clean && pnpm run build:tsup:prod && pnpm run build:copy",
     "build:clean": "rm -rf ./dist",
     "build:copy": "cp -r ./seeds/images ./dist/images",
     "build:tsup": "tsup",
+    "build:tsup:prod": "tsup --config tsup.production.config.ts",
     "start": "node ./dist/server.js"
   },
   "dependencies": {
