@@ -9,7 +9,7 @@ import { Spacer } from '../../../foundation/components/Spacer';
 import { Text } from '../../../foundation/components/Text';
 import { useImage } from '../../../foundation/hooks/useImage';
 import { Color, Radius, Space, Typography } from '../../../foundation/styles/variables';
-import { useEpisode } from '../hooks/useEpisode';
+// import { useEpisode } from '../hooks/useEpisode';
 
 const _Wrapper = styled.li`
   width: 100%;
@@ -30,36 +30,42 @@ const _ImgWrapper = styled.div`
 type Props = {
   bookId: string;
   episodeId: string;
+  image: {
+    id: string;
+  };
+  name: string;
+  chapter: number;
+  description: string;
 };
 
-export const EpisodeListItem: React.FC<Props> = ({ bookId, episodeId }) => {
-  const { data: episode } = useEpisode({ params: { episodeId } });
+export const EpisodeListItem: React.FC<Props> = ({ bookId, episodeId, image, name, chapter, description }) => {
+  // const { data: episode } = useEpisode({ params: { episodeId } });
 
-  const imageUrl = useImage({ height: 96, imageId: episode.image.id, width: 96 });
+  const imageUrl = useImage({ height: 96, imageId: image.id, width: 96 });
 
   return (
     <_Wrapper>
-      <_Link href={`/books/${bookId}/episodes/${episode.id}`}>
+      <_Link href={`/books/${bookId}/episodes/${episodeId}`}>
         <Spacer height={Space * 1.5} />
         <Flex align="flex-start" gap={Space * 2.5} justify="flex-start">
           {imageUrl != null && (
             <_ImgWrapper>
-              <Image alt={episode.name} height={96} objectFit="cover" src={imageUrl} width={96} />
+              <Image alt={name} height={96} objectFit="cover" src={imageUrl} width={96} />
             </_ImgWrapper>
           )}
           <Box width="100%">
             <Flex align="flex-start" direction="column" gap={Space * 1} justify="flex-start">
               <Flex align="center" justify="flex-start">
                 <Text color={Color.MONO_100} flexShrink={0} typography={Typography.NORMAL16} weight="bold">
-                  第{episode.chapter}話
+                  第{chapter}話
                 </Text>
                 <Spacer width={Space * 2} />
                 <Text color={Color.MONO_80} typography={Typography.NORMAL14} weight="bold">
-                  {`- ${episode.name} -`}
+                  {`- ${name} -`}
                 </Text>
               </Flex>
               <Text as="p" color={Color.MONO_80} typography={Typography.NORMAL12}>
-                {episode.description}
+                {description}
               </Text>
             </Flex>
           </Box>

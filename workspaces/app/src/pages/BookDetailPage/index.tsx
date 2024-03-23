@@ -107,7 +107,7 @@ const BookDetailPage: React.FC = () => {
       <section aria-label="エピソード一覧">
         <Flex align="center" as="ul" direction="column" justify="center">
           {episodeList.map((episode) => (
-            <EpisodeListItem key={episode.id} bookId={bookId} episodeId={episode.id} />
+            <EpisodeListItem key={episode.id} bookId={bookId} episodeId={episode.id} image={episode.image} name={episode.name} chapter={episode.chapter} description={episode.description} />
           ))}
           {episodeList.length === 0 && (
             <>
