@@ -39,7 +39,7 @@ export const useImage = ({ height, imageId, width }: { height: number; imageId: 
       ctx.drawImage(img, srcX, srcY, srcW, srcH, 0, 0, width * dpr, height * dpr);
     }
 
-    return canvas.toDataURL('image/png');
+    return canvas.toDataURL('image/webp');
   }, [height, imageId, width]);
 
   return value;
