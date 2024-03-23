@@ -70,9 +70,34 @@ const BookCard: React.FC<Props> = ({ bookId }) => {
   );
 };
 
+export const BookCardFallback: React.FC = () => {
+  return (
+    <_Wrapper>
+      <_ImgWrapper>
+        <Image alt="" height={128} objectFit="cover" src="" width={192} />
+      </_ImgWrapper>
+
+      <Flex align="stretch" direction="column" flexGrow={1} gap={Space * 1} justify="space-between" p={Space * 2}>
+        <Text color={Color.MONO_100} typography={Typography.NORMAL14} weight="bold">
+          {'-'}
+        </Text>
+
+        <Flex align="center" gap={Space * 1} justify="flex-end">
+          <_AvatarWrapper>
+            <Image alt="" height={32} objectFit="cover" src="" width={32} />
+          </_AvatarWrapper>
+          <Text color={Color.MONO_100} typography={Typography.NORMAL12}>
+            {'-'}
+          </Text>
+        </Flex>
+      </Flex>
+    </_Wrapper>
+  );
+}
+
 const BookCardWithSuspense: React.FC<Props> = (props) => {
   return (
-    <Suspense fallback={null}>
+    <Suspense fallback={<BookCardFallback />}>
       <BookCard {...props} />
     </Suspense>
   );

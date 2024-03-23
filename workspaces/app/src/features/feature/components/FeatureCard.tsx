@@ -84,9 +84,35 @@ const FeatureCard: React.FC<Props> = ({ bookId }) => {
   );
 };
 
+export const FeatureCardFallback: React.FC = () => {
+  return (
+    <_Wrapper href="#">
+      <_ImgWrapper>
+        <Image alt="" height={96} objectFit="cover" src="" width={96} />
+      </_ImgWrapper>
+      <_ContentWrapper>
+        <Text color={Color.MONO_100} typography={Typography.NORMAL16} weight="bold">
+          Loading...
+        </Text>
+        <Text as="p" color={Color.MONO_100} typography={Typography.NORMAL14}>
+          Loading...
+        </Text>
+        <Flex align="center" gap={Space * 1} justify="flex-end">
+          <_AvatarWrapper>
+            <Image alt="" height={32} objectFit="cover" src="" width={32} />
+          </_AvatarWrapper>
+          <Text color={Color.MONO_100} typography={Typography.NORMAL14}>
+            Loading...
+          </Text>
+        </Flex>
+      </_ContentWrapper>
+    </_Wrapper>
+  );
+}
+
 const FeatureCardWithSuspense: React.FC<Props> = (props) => {
   return (
-    <Suspense fallback={null}>
+    <Suspense fallback={<FeatureCardFallback />}>
       <FeatureCard {...props} />
     </Suspense>
   );

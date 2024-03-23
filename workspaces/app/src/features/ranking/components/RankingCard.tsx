@@ -103,9 +103,54 @@ const RankingCard: React.FC<Props> = ({ bookId }) => {
   );
 };
 
+export const RankingCardFallback: React.FC = () => {
+  return (
+    <_Wrapper>
+      <Spacer height={Space * 1.5} />
+      <Flex align="flex-start" gap={Space * 2.5} justify="flex-start">
+        <_ImgWrapper>
+          <Image alt="" height={96} objectFit="cover" src="" width={96} />
+        </_ImgWrapper>
+        <Box width="100%">
+          <Flex align="flex-start" direction="column" gap={Space * 1} justify="flex-start">
+            <Text color={Color.MONO_100} typography={Typography.NORMAL16} weight="bold">
+              Loading...
+            </Text>
+            <Text as="p" color={Color.MONO_80} typography={Typography.NORMAL12}>
+              Loading...
+            </Text>
+          </Flex>
+
+          <Spacer height={Space * 1} />
+
+          <Flex align="center" gap={Space * 1} justify="flex-end">
+            <_AvatarWrapper>
+              <Image alt="" height={32} objectFit="cover" src="" width={32} />
+            </_AvatarWrapper>
+            <Text color={Color.MONO_80} typography={Typography.NORMAL12}>
+              Loading...
+            </Text>
+          </Flex>
+
+          <Spacer height={Space * 1} />
+
+          <Flex align="center" justify="flex-end">
+            <Text color={Color.Secondary} typography={Typography.NORMAL14} weight="bold">
+              Loading...
+            </Text>
+            <SvgIcon color={Color.Secondary} height={32} type="NavigateNext" width={32} />
+          </Flex>
+        </Box>
+      </Flex>
+      <Spacer height={Space * 1.5} />
+      <Separator />
+    </_Wrapper>
+  );
+}
+
 const RankingCardWithSuspense: React.FC<Props> = (props) => {
   return (
-    <Suspense fallback={null}>
+    <Suspense fallback={<RankingCardFallback />}>
       <RankingCard {...props} />
     </Suspense>
   );

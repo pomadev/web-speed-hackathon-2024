@@ -40,9 +40,13 @@ const SearchPage: React.FC = () => {
   );
 };
 
+const SearchPageFallback: React.FC = () => {
+  return <Box>Loading...</Box>;
+}
+
 const SearchPageWithSuspense: React.FC = () => {
   return (
-    <Suspense fallback={null}>
+    <Suspense fallback={<SearchPageFallback />}>
       <SearchPage />
     </Suspense>
   );
