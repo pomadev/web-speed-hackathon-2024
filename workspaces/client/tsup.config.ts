@@ -62,7 +62,6 @@ export default defineConfig(async (): Promise<Options[]> => {
       splitting: false,
       target: ['chrome58', 'firefox57', 'safari11', 'edge18'],
       treeshake: false,
-      watch: true,
     },
   ];
 });

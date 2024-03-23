@@ -30,7 +30,6 @@ export default defineConfig(async (): Promise<Options[]> => {
       splitting: false,
       target: 'node18',
       treeshake: false,
-      watch: true,
     },
   ];
 });
