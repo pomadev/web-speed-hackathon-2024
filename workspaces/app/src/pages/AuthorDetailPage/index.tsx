@@ -86,46 +86,9 @@ const AuthorDetailPage: React.FC = () => {
   );
 };
 
-const AuthorDetailPageFallback: React.FC = () => {
-  return (
-    <Box height="100%" px={Space * 2}>
-      <_HeadingWrapper aria-label="作者情報">
-        <_AuthorImageWrapper>
-          <Image alt="" height={128} objectFit="cover" src="" width={128} />
-        </_AuthorImageWrapper>
-
-        <Flex align="flex-start" direction="column" gap={Space * 1} justify="flex-start">
-          <Text color={Color.MONO_100} typography={Typography.NORMAL20} weight="bold">
-            著者名
-          </Text>
-          <Text as="p" color={Color.MONO_100} typography={Typography.NORMAL14}>
-            著者情報
-          </Text>
-        </Flex>
-      </_HeadingWrapper>
-
-      <Separator />
-
-      <Box aria-labelledby="" as="section" maxWidth="100%" py={Space * 2} width="100%">
-        <Text as="h2" color={Color.MONO_100} id="" typography={Typography.NORMAL20} weight="bold">
-          作品一覧
-        </Text>
-
-        <Spacer height={Space * 2} />
-
-        <Flex align="center" as="ul" direction="column" justify="center">
-          <BookListItem bookId="" />
-          <BookListItem bookId="" />
-          <BookListItem bookId="" />
-        </Flex>
-      </Box>
-    </Box>
-  );
-}
-
 const AuthorDetailPageWithSuspense: React.FC = () => {
   return (
-    <Suspense fallback={<AuthorDetailPageFallback />}>
+    <Suspense fallback={null}>
       <AuthorDetailPage />
     </Suspense>
   );

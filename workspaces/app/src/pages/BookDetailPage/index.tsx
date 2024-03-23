@@ -123,55 +123,9 @@ const BookDetailPage: React.FC = () => {
   );
 };
 
-const BookDetailPageFallback: React.FC = () => {
-  return (
-    <Box height="100%" px={Space * 2}>
-      <_HeadingWrapper aria-label="作品情報">
-        <Image alt="" height={256} objectFit="cover" src="" width={192} />
-        <Flex align="flex-start" direction="column" gap={Space * 1} justify="flex-end">
-          <Box>
-            <Text color={Color.MONO_100} typography={Typography.NORMAL20} weight="bold">
-              作品名
-            </Text>
-            <Spacer height={Space * 1} />
-            <Text as="p" color={Color.MONO_100} typography={Typography.NORMAL14}>
-              作品説明
-            </Text>
-          </Box>
-
-          <Spacer height={Space * 1} />
-
-          <_AuthorWrapper href="/authors/0">
-            <_AvatarWrapper>
-              <Image alt="" height={32} objectFit="cover" src="" width={32} />
-            </_AvatarWrapper>
-            <Text color={Color.MONO_100} typography={Typography.NORMAL14}>
-              著者名
-            </Text>
-          </_AuthorWrapper>
-        </Flex>
-      </_HeadingWrapper>
-
-      <BottomNavigator bookId="" isFavorite={false} latestEpisodeId="" onClickFav={() => {}} />
-
-      <Separator />
-
-      <section aria-label="エピソード一覧">
-        <Flex align="center" as="ul" direction="column" justify="center">
-          <EpisodeListItem bookId="" episodeId="" />
-          <Spacer height={Space * 2} />
-          <Text color={Color.MONO_100} typography={Typography.NORMAL14}>
-            この作品はまだエピソードがありません
-          </Text>
-        </Flex>
-      </section>
-    </Box>
-  );
-}
-
 const BookDetailPageWithSuspense: React.FC = () => {
   return (
-    <Suspense fallback={<BookDetailPageFallback />}>
+    <Suspense fallback={null}>
       <BookDetailPage />
     </Suspense>
   );

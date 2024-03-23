@@ -16,11 +16,7 @@ const _Image = styled.img`
 
 export const HeroImage: React.FC = () => {
   const imageRef = useRef<HTMLImageElement | null>(null);
-  const canvasRef = useRef<HTMLCanvasElement | null>(null);
-
-  useEffect(() => {
-    canvasRef.current = document.createElement('canvas');
-  }, [])
+  const canvasRef = useRef<HTMLCanvasElement>(document.createElement('canvas'));
 
   const updateImage = useCallback(({ height, src, width }: { height: number; src: string; width: number }) => {
     const image = imageRef.current;
@@ -35,10 +31,6 @@ export const HeroImage: React.FC = () => {
   useEffect(() => {
     const image = imageRef.current;
     if (image == null) {
-      return;
-    }
-    const canvas = canvasRef.current;
-    if (canvas == null) {
       return;
     }
 
@@ -80,7 +72,7 @@ void main() {
       const mesh = new Mesh(geometry, material);
       scene.add(mesh);
 
-      const renderer = new WebGLRenderer({ alpha: true, antialias: true, canvas: canvas });
+      const renderer = new WebGLRenderer({ alpha: true, antialias: true, canvas: canvasRef.current });
       renderer.setPixelRatio(window.devicePixelRatio);
       renderer.setSize(width, height);
 
@@ -92,11 +84,11 @@ void main() {
 
       updateImage({
         height: imageHeight,
-        src: canvas.toDataURL(),
+        src: canvasRef.current.toDataURL(),
         width: imageWidth,
       });
     });
-  }, [imageRef, canvasRef, updateImage]);
+  }, [imageRef, updateImage]);
 
   useEffect(() => {
     const resize = () => {
@@ -104,16 +96,12 @@ void main() {
       if (image == null) {
         return;
       }
-      const canvas = canvasRef.current;
-      if (canvas == null) {
-        return;
-      }
 
       const width = image.clientWidth;
       const height = (image.clientWidth / 16) * 9;
       updateImage({
         height,
-        src: canvas.toDataURL(),
+        src: canvasRef.current.toDataURL(),
         width,
       });
     };

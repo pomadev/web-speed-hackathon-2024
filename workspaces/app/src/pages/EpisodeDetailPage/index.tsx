@@ -40,13 +40,9 @@ const EpisodeDetailPage: React.FC = () => {
   );
 };
 
-const EpisodeDetailPageFallback: React.FC = () => {
-  return <Box>Loading...</Box>;
-}
-
 const EpisodeDetailPageWithSuspense: React.FC = () => {
   return (
-    <Suspense fallback={<EpisodeDetailPageFallback />}>
+    <Suspense fallback={null}>
       <EpisodeDetailPage />
     </Suspense>
   );
