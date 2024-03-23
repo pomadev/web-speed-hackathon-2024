@@ -41,7 +41,7 @@ const TopPage: React.FC = () => {
           <Box maxWidth="100%" overflowX="scroll" overflowY="hidden">
             <Flex align="stretch" direction="row" gap={Space * 2} justify="flex-start">
               {_.map(featureList, (feature) => (
-                <FeatureCard key={feature.id} bookId={feature.book.id} />
+                <FeatureCard key={feature.id} bookId={feature.book.id} name={feature.book.name} image={{id: feature.book.image.id, alt: feature.book.image.alt}} author={{name: feature.book.author.name, image: {id: feature.book.author.image.id}}} description={feature.book.description} />
               ))}
             </Flex>
           </Box>
@@ -57,7 +57,7 @@ const TopPage: React.FC = () => {
           <Box maxWidth="100%" overflowX="hidden" overflowY="hidden">
             <Flex align="center" as="ul" direction="column" justify="center">
               {_.map(rankingList, (ranking) => (
-                <RankingCard key={ranking.id} bookId={ranking.book.id} />
+                <RankingCard key={ranking.id} bookId={ranking.book.id} name={ranking.book.name} image={{id: ranking.book.image.id, alt: ranking.book.image.alt}} author={{name: ranking.book.author.name, image: {id: ranking.book.author.image.id}}} description={ranking.book.description} />
               ))}
             </Flex>
           </Box>
@@ -73,7 +73,7 @@ const TopPage: React.FC = () => {
           <Box maxWidth="100%" overflowX="scroll" overflowY="hidden">
             <Flex align="stretch" gap={Space * 2} justify="flex-start">
               {_.map(release.books, (book) => (
-                <BookCard key={book.id} bookId={book.id} />
+                <BookCard key={book.id} bookId={book.id} name={book.name} image={{id: book.image.id, alt: book.image.alt}} author={{name: book.author.name, image: {id: book.author.image.id}}} />
               ))}
             </Flex>
           </Box>
