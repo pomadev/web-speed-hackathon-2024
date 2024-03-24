@@ -1,7 +1,5 @@
 import { Box, Button, FormControl, FormErrorMessage, FormLabel, Heading, Input, Spacer, Stack } from '@chakra-ui/react';
-import { useFormik } from 'formik';
-import { useId } from 'react';
-import * as yup from 'yup';
+import { useId, useState } from 'react';
 
 import { useLogin } from '../../../features/auth/hooks/useLogin';
 
@@ -9,31 +7,50 @@ export const LoginContent: React.FC = () => {
   const login = useLogin();
   const loginContentA11yId = useId();
 
-  const formik = useFormik({
-    initialValues: {
-      email: '',
-      password: '',
-    },
-    async onSubmit(values) {
-      login.mutate({ email: values.email, password: values.password });
-    },
-    validationSchema: yup.object().shape({
-      email: yup
-        .string()
-        .required('メールアドレスを入力してください')
-        .test({
-          message: 'メールアドレスには @ を含めてください',
-          test: (v) => /^(?:[^@]*){12,}$/v.test(v) === false,
-        }),
-      password: yup
-        .string()
-        .required('パスワードを入力してください')
-        .test({
-          message: 'パスワードには記号を含めてください',
-          test: (v) => /^(?:[^\P{Letter}&&\P{Number}]*){24,}$/v.test(v) === false,
-        }),
-    }),
-  });
+  const [email, setEmail] = useState('')
+  const [emailError, setEmailError] = useState('')
+
+  const [password, setPassword] = useState('')
+  const [passwordError, setPasswordError] = useState('')
+
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault()
+    login.mutate({ email: email, password: password })
+  }
+
+  const handleChangeEmail = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setEmail(e.target.value)
+  }
+
+  const handleBlurEmail = (e: React.FocusEvent<HTMLInputElement>) => {
+    if (e.target.value === '') {
+      setEmailError('メールアドレスを入力してください')
+      return
+    }
+    const isValid = /@/.test(e.target.value)
+    if (!isValid) {
+      setEmailError('メールアドレスには @ を含めてください')
+      return
+    }
+    setEmailError('')
+  }
+
+  const handleChangePassword = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setPassword(e.target.value)
+  }
+
+  const handleBlurPassword = (e: React.FocusEvent<HTMLInputElement>) => {
+    if (e.target.value === '') {
+      setPasswordError('パスワードを入力してください')
+      return
+    }
+    const isValid = /[!@#$%^&*(),.?":{}|<>]/g.test(e.target.value)
+    if (!isValid) {
+      setPasswordError('パスワードには記号を含めてください')
+      return
+    }
+    setPasswordError('')
+  }
 
   return (
     <Box
@@ -41,7 +58,7 @@ export const LoginContent: React.FC = () => {
       as="form"
       bg="gray.100"
       borderRadius={8}
-      onSubmit={formik.handleSubmit}
+      onSubmit={handleSubmit}
       p={6}
       w="100%"
     >
@@ -50,31 +67,31 @@ export const LoginContent: React.FC = () => {
           ログイン
         </Heading>
 
-        <FormControl isInvalid={formik.touched.email && formik.errors.email != null}>
+        <FormControl isInvalid={emailError !== ''}>
           <FormLabel>メールアドレス</FormLabel>
           <Input
             bgColor="white"
             borderColor="gray.300"
             name="email"
-            onBlur={formik.handleBlur}
-            onChange={formik.handleChange}
+            onBlur={handleBlurEmail}
+            onChange={handleChangeEmail}
             placeholder="メールアドレス"
           />
-          <FormErrorMessage role="alert">{formik.errors.email}</FormErrorMessage>
+          <FormErrorMessage role="alert">{emailError}</FormErrorMessage>
         </FormControl>
 
-        <FormControl isInvalid={formik.touched.password && formik.errors.password != null}>
+        <FormControl isInvalid={passwordError !== ''}>
           <FormLabel>パスワード</FormLabel>
           <Input
             bgColor="white"
             borderColor="gray.300"
             name="password"
-            onBlur={formik.handleBlur}
-            onChange={formik.handleChange}
+            onBlur={handleBlurPassword}
+            onChange={handleChangePassword}
             placeholder="パスワード"
             type="password"
           />
-          <FormErrorMessage role="alert">{formik.errors.password}</FormErrorMessage>
+          <FormErrorMessage role="alert">{passwordError}</FormErrorMessage>
         </FormControl>
 
         <Spacer />
